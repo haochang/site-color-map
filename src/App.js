@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Fragment, Component } from 'react';
+import FileInput from './component/FileInput.js';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 class App extends Component {
     render() {
         return (
-            <div className='App'>
-                <header className='App-header'>
-                    hello world
-                </header>
-            </div>
+            <Fragment>
+                <CssBaseline />
+                <FileInput />
+            </Fragment>
         );
     }
 }
