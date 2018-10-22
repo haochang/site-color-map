@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.2.2",
+    "color-sorter": "^2.2.0",
     "css-color-extractor": "0.0.5",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

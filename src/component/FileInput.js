@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import extractor from 'css-color-extractor';
 import ColorsOutput from './ColorsOutput';
+import sortColors from 'color-sorter';
 
 const styles = {
     root: {
@@ -39,6 +40,8 @@ class FileInput extends Component {
         });
         const colors = extractor.fromCss(res, {
             allColors: true,
+            withoutGrey: true,
+            withoutMonochrome: true,
         });
         this.setState({
             fetching: false,
@@ -48,7 +51,8 @@ class FileInput extends Component {
 
     handleColors = (colors) => {
         const newColors = {};
-        colors.map(color => {
+        const sortedColors = sortColors(colors);
+        sortedColors.map(color => {
             if (newColors[color]) {
                 newColors[color] = newColors[color] + 1;
             } else {
