@@ -5,7 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.2.2",
     "color-sorter": "^2.2.0",
-    "css-color-extractor": "0.0.5",
+    "css-color-extractor": "https://github.com/haochang/css-color-extractor/tarball/feature/allcolors",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-scripts": "2.0.5"
