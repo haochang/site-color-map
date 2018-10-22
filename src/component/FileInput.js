@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import extractor from 'css-color-extractor';
+import ColorsOutput from './ColorsOutput';
 
 const styles = {
     root: {
@@ -28,17 +29,26 @@ class FileInput extends Component {
     state = {
         url: '',
         fetching: false,
+        colors: null,
     }
 
     fetchData = async (url) => {
         const res = await window.fetch(url).then(function(response) {
             return response.text();
         });
-        const colors = extractor.fromCss(res);
+        const colors = extractor.fromCss(res, {
+            allColors: true,
+        });
         this.setState({
             fetching: false,
         });
-        console.log(colors);
+        this.handleColors(colors);
+    }
+
+    handleColors = (colors) => {
+        this.setState({
+            colors,
+        });
     }
 
     handleChange = url => event => {
@@ -74,7 +84,6 @@ class FileInput extends Component {
                             shrink: true,
                         }}
                     />
-
                     <Button
                         disabled={this.state.fetching}
                         variant='outlined'
@@ -83,7 +92,10 @@ class FileInput extends Component {
                         onClick={this.onSubmit}>
                         Submit
                     </Button>
+
                 </Paper>
+
+                { this.state.colors && <ColorsOutput colors={this.state.colors} />}
             </div>
         );
     }
