@@ -10,13 +10,14 @@ import ColorsOutput from './ColorsOutput';
 const styles = {
     root: {
         minHeight: '100vh',
-        display: 'flex',
+        display: 'block',
         alignItems: 'center',
+        paddingTop: 40,
     },
     paper: {
         width: '90vw',
         margin: '0 auto',
-        height: '50vh',
+        height: 200,
         padding: 40,
     },
     button: {
@@ -46,8 +47,20 @@ class FileInput extends Component {
     }
 
     handleColors = (colors) => {
+        const newColors = {};
+        colors.map(color => {
+            if (newColors[color]) {
+                newColors[color] = newColors[color] + 1;
+            } else {
+                newColors[color] = 1;
+            }
+        });
+
+        delete newColors[0];
+        delete newColors['transparent'];
+
         this.setState({
-            colors,
+            colors: newColors,
         });
     }
 
