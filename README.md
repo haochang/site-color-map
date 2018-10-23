@@ -1,8 +1,10 @@
 # Site color map
 
-[![NPM version](https://badge.fury.io/js/css-color-extractor.svg)](https://www.npmjs.org/package/css-color-extractor)
+This little tool will return all colors in the css style sheet provided in the URL and the number of occurrences.
 
-[Use npm](https://www.npmjs.org/doc/cli/npm-install.html).
+![Screenshot](screenshot.png)
+
+## Usage
 
 ```
 npm install
