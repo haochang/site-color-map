@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import extractor from 'css-color-extractor';
 import ColorsOutput from './ColorsOutput';
 import sortColors from 'color-sorter';
+import isUrl from 'is-url';
 
 const styles = {
     root: {
@@ -35,18 +36,26 @@ class FileInput extends Component {
     }
 
     fetchData = async (url) => {
-        const res = await window.fetch(url).then(function(response) {
-            return response.text();
-        });
-        const colors = extractor.fromCss(res, {
-            allColors: true,
-            withoutGrey: true,
-            withoutMonochrome: true,
-        });
-        this.setState({
-            fetching: false,
-        });
-        this.handleColors(colors);
+        try {
+            const res = await window.fetch(url).then(function(response) {
+                return response.text();
+            });
+
+            const colors = extractor.fromCss(res, {
+                allColors: true,
+                withoutGrey: true,
+                withoutMonochrome: true,
+            });
+            this.setState({
+                fetching: false,
+            });
+            this.handleColors(colors);
+        } catch {
+            this.setState({
+                fetching: false,
+                colors: null,
+            });
+        }
     }
 
     handleColors = (colors) => {
@@ -75,10 +84,14 @@ class FileInput extends Component {
     };
 
     onSubmit = () => {
+        const url = this.state.url;
+        if (!isUrl(url)) {
+            return
+        }
+
         this.setState({
             fetching: true,
         });
-        const url = this.state.url;
         this.fetchData(url);
     }
 
