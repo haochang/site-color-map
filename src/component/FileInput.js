@@ -15,6 +15,7 @@ class FileInput extends Component {
         url: '',
         fetching: false,
         colors: null,
+        error: false,
     }
 
     fetchData = async (url) => {
@@ -68,11 +69,15 @@ class FileInput extends Component {
     onSubmit = () => {
         const url = this.state.url;
         if (!isUrl(url)) {
+            this.setState({
+                error: true,
+            });
             return
         }
 
         this.setState({
             fetching: true,
+            error: false,
         });
         this.fetchData(url);
     }
@@ -83,6 +88,7 @@ class FileInput extends Component {
             <div className={classes.root}>
                 <Paper className={classes.paper}>
                     <TextField
+                        error={this.state.error}
                         id='outlined-full-width'
                         label='Url'
                         style={{ margin: 8 }}
